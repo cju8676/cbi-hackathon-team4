@@ -11,11 +11,13 @@ import Button from '@mui/material/Button';
 import Instagram from './Instagram';
 
 
+
 function App() {
   const [brand, setBrand] = useState('corona');
   const [pic, setPic] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  function askGPT(topic, brand) {
+  function askGPT(brand) {
     // mock generated ChatGPT responses
     const prompts = [
         {
@@ -32,17 +34,21 @@ function App() {
         },
         {
             "brand" : "robertmondavi",
-            "topic" : "wedding",
-            "description" : "",
-            "tagline" : ""
+            "topic" : "music",
+            "description" : "a bottle of Robert Mondavi Cabernet Sauvignon nestled among a variety of musical instruments like a violin, piano keys, and a saxophone. The wine bottle should be in the center, with the instruments subtly suggesting a vineyard landscape",
+            "tagline" : "Robert Mondavi - Crafted Harmony."
         }
     ]
     // GPT call goes here
-    return prompts.find((prompt) => prompt.topic === topic && prompt.brand === brand);
+    return prompts.find((prompt) => /*prompt.topic === topic &&*/ prompt.brand === brand);
   }
 
   function testGetImage() {
-    setPic(test);
+    const prompt = askGPT(brand);
+    console.log("prompt", prompt);
+    setPic(brand);
+    setLoading(false);
+    // setPic(test);
   }
 
   function getImage() {
@@ -102,6 +108,7 @@ function App() {
         profile={"coronausa"}
         location={"Rochester, NY"}
         caption={"Corona Extra - Where the beach meets the city."}
+        loading={loading}
       />
     </div>
   );
