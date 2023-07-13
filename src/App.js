@@ -3,7 +3,7 @@ import { Buffer } from 'buffer';
 import logo from './logo.svg';
 import cbi from './cbi.png';
 import './App.css';
-import test from './testimg.base64'
+import test from './image';
 
 
 function App() {
@@ -35,13 +35,13 @@ function App() {
     setPic(test);
   }
 
-  function getImage(description) {
+  function getImage() {
       // Call to stable diffusion API with description goes here
       // fetch then then
       const payload = {
         "prompt": "A graphic of a Corona bottle and lime slice against a beach backdrop, with surfboards and palm trees that morph into a cityscape.",
       }
-      fetch('https://cors-anywhere.herokuapp.com/'+'https://66df9513b1748993d8.gradio.live/sdapi/v1/txt2img', {
+      fetch('https://cors-anywhere.herokuapp.com/'+'https://b3aa4b88-8051-4ed2.gradio.live/sdapi/v1/txt2img', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,9 +52,9 @@ function App() {
       .then(data => {
         console.log(data)
         // let base64_to_imgsrc = Buffer.from(data.images[0], "base64").toString()
-        var image = new Image();
-        image.src = "data:image/jpeg;charset=utf-8;base64" + data.images[0];
-        setPic(image);
+        // var image = new Image();
+        // image.src = "data:image/jpeg;charset=utf-8;base64" + data.images[0];
+        setPic(data.images[0]);
       })
       .catch((error) => {
         console.error('Error:', error);
