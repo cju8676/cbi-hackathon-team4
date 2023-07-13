@@ -8,6 +8,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Instagram from './Instagram';
 
 
 function App() {
@@ -72,29 +73,36 @@ function App() {
 
 
   return (
-    <div className="App">
-      <img style={{width: '50%'}} src={cbi} alt="CBi Logo"></img>
-      <h1>CBI Hackathon</h1>
-      <h2>Social Media Marketing Generator</h2>
+    <div>
+      <div className='App'>
+        <img style={{width: '50%'}} src={cbi} alt="CBi Logo"></img>
+        <h1>CBI Hackathon</h1>
+        <h2>Social Media Marketing Generator</h2>
 
-      <h4>Select a CBI Brand you want to market</h4>
-      <ToggleButtonGroup
-        value={brand}
-        onChange={(event, newBrand) => {
-          setBrand(newBrand);
-        }}
-        aria-label="brand"
-        exclusive
-      >
-        <ToggleButton value="corona" aria-label="corona">Corona</ToggleButton>
-        <ToggleButton value="modelo" aria-label="modelo">Modelo</ToggleButton>
-        <ToggleButton value="robertmondavi" aria-label="robertmondavi">Robert Mondavi</ToggleButton>
-      </ToggleButtonGroup>
-      <p>Enter a topic/activity you want to market:</p>
-      <TextField variant='outlined' label="Topic"/>
-      <Button onClick={() => testGetImage()}>Generate Image</Button>
-      {pic && <img src={"data:image/png;base64," + pic} alt="Generated Image"></img>}
-      {!pic && <p>Click the button to generate an image!</p>}
+        <h4>Select a CBI Brand you want to market</h4>
+        <ToggleButtonGroup
+          value={brand}
+          onChange={(event, newBrand) => {
+            setBrand(newBrand);
+          }}
+          aria-label="brand"
+          exclusive
+        >
+          <ToggleButton value="corona" aria-label="corona">Corona</ToggleButton>
+          <ToggleButton value="modelo" aria-label="modelo">Modelo</ToggleButton>
+          <ToggleButton value="robertmondavi" aria-label="robertmondavi">Robert Mondavi</ToggleButton>
+        </ToggleButtonGroup>
+        <p>Enter a topic/activity you want to market:</p>
+        <TextField variant='outlined' label="Topic"/>
+        <Button onClick={() => testGetImage()}>Generate Image</Button>
+        {!pic && <p>Click the button to generate an image!</p>}
+      </div>
+      <Instagram 
+        image={pic}
+        profile={"coronausa"}
+        location={"Rochester, NY"}
+        caption={"Corona Extra - Where the beach meets the city."}
+      />
     </div>
   );
 }
