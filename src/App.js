@@ -9,6 +9,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Instagram from './Instagram';
+import { CircularProgress } from '@mui/material';
 
 
 
@@ -17,6 +18,7 @@ function App() {
   const [pic, setPic] = useState('');
   const [loading, setLoading] = useState(true);
   const [description, setDescription] = useState('');
+  const [gen, setGen] = useState(false);
 
   function askGPT(brand) {
     // mock generated ChatGPT responses
@@ -47,9 +49,12 @@ function App() {
   function testGetImage() {
     const prompt = askGPT(brand);
     console.log("prompt", prompt);
-    setPic(brand);
-    setLoading(false);
-    setDescription(prompt.description);
+    setGen(true);
+    setTimeout(() => {
+      setLoading(false);
+      setPic(brand);
+      setDescription(prompt.description);
+    }, 2000);
     // setPic(test);
   }
 
@@ -83,10 +88,11 @@ function App() {
   return (
     <div>
       <div className='App'>
-        <img style={{width: '50%'}} src={cbi} alt="CBi Logo"></img>
+        <img style={{width: '25%'}} src={cbi} alt="CBi Logo"></img>
         <h1>CBI Hackathon</h1>
+        <br/>
         <h2>Social Media Marketing Generator</h2>
-
+        <br/>
         <h4>Select a CBI Brand you want to market</h4>
         <ToggleButtonGroup
           value={brand}
@@ -100,23 +106,25 @@ function App() {
           <ToggleButton value="modelo" aria-label="modelo">Modelo</ToggleButton>
           <ToggleButton value="robertmondavi" aria-label="robertmondavi">Robert Mondavi</ToggleButton>
         </ToggleButtonGroup>
-        <p>Enter a topic/activity you want to market:</p>
+        <div style={{"padding": '10px'}}>
+          <p>Enter a topic/activity you want to market:</p>
+        </div>
         <TextField variant='outlined' label="Topic"/>
-        <div>
+        <div style={{ "padding" : "10px"}}>
           <Button onClick={() => testGetImage()} variant='outlined'>Generate Image</Button>
         </div>
         {!pic && <p>Click the button to generate an image!</p>}
       </div>
-      <div className='description-text'>
-        {description}
-      </div>
-      <Instagram 
+      {gen && <div className='description-text'>
+        {loading ? <CircularProgress /> : description}
+      </div>}
+      {gen && <Instagram 
         image={pic}
         profile={"coronausa"}
         location={"Rochester, NY"}
         caption={"Corona Extra - Where the beach meets the city."}
         loading={loading}
-      />
+      />}
     </div>
   );
 }
