@@ -16,6 +16,7 @@ function App() {
   const [brand, setBrand] = useState('corona');
   const [pic, setPic] = useState('');
   const [loading, setLoading] = useState(true);
+  const [description, setDescription] = useState('');
 
   function askGPT(brand) {
     // mock generated ChatGPT responses
@@ -48,6 +49,7 @@ function App() {
     console.log("prompt", prompt);
     setPic(brand);
     setLoading(false);
+    setDescription(prompt.description);
     // setPic(test);
   }
 
@@ -100,8 +102,13 @@ function App() {
         </ToggleButtonGroup>
         <p>Enter a topic/activity you want to market:</p>
         <TextField variant='outlined' label="Topic"/>
-        <Button onClick={() => testGetImage()}>Generate Image</Button>
+        <div>
+          <Button onClick={() => testGetImage()} variant='outlined'>Generate Image</Button>
+        </div>
         {!pic && <p>Click the button to generate an image!</p>}
+      </div>
+      <div className='description-text'>
+        {description}
       </div>
       <Instagram 
         image={pic}

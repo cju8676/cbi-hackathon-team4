@@ -121,8 +121,10 @@
     }
     
     .col-9 {
-    width: 65%;
+    width: 45%;
     margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
     }
     
     .statuses {
